@@ -1,8 +1,6 @@
 package logerr
 
 import (
-	"errors"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -16,6 +14,15 @@ import (
 
 // WithError appends err to entry and returns new entry.
 func WithError(entry *logrus.Entry, err error) *logrus.Entry {
+	if entry == nil {
+		if err == nil {
+			return logrus.NewEntry(logrus.New())
+		}
+		return logrus.WithError(err).WithFields(getFields(err))
+	}
+	if err == nil {
+		return entry
+	}
 	return entry.WithError(err).WithFields(getFields(err))
 }
 
@@ -62,5 +69,5 @@ func (e *logrusError) Unwrap() error {
 	if e == nil || e.err == nil {
 		return nil
 	}
-	return errors.Unwrap(e.err)
+	return e.err
 }

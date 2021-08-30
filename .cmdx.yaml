@@ -7,6 +7,14 @@ tasks:
   description: test
   usage: test
   script: go test ./... -covermode=atomic
+- name: coverage
+  short: c
+  description: show test coverage
+  usage: show test coverage
+  script: |
+    set -eu
+    go test ./... -race -coverprofile=.coverage.txt -covermode=atomic
+    go tool cover -html=.coverage.txt
 - name: vet
   short: v
   description: go vet
