@@ -44,9 +44,11 @@ func foo3() error {
 }
 
 func foo4() error {
-	// Add fields to error
-	return logerr.WithFields(foo3(), logrus.Fields{ //nolint:wrapcheck
+	fields := logrus.Fields{
 		"name": "foo4",
+	}
+	// Add fields to error
+	return logerr.WithFields(foo3(), logerr.AppendFields(fields, logrus.Fields{ //nolint:wrapcheck
 		"foo4": "foo4",
-	})
+	}))
 }
