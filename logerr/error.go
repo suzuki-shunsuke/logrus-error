@@ -4,13 +4,18 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Add fields
-// errlog.WithFields(err, logrus.Fields{})
-// Add msg
-// fmt.Errorf("foo: %w", err)
-// Logging
-// logE := logrus.WithFields(logrus.Fields{})
-// errlog.WithError(logE, err).Fatal("foo")
+// AppendFields merges fields1 and fields2 and returns a new fields.
+// fields of fields2 overwrites fields of fields1.
+func AppendFields(fields1, fields2 logrus.Fields) logrus.Fields {
+	fields := make(logrus.Fields, len(fields1)+len(fields2))
+	for k, v := range fields1 {
+		fields[k] = v
+	}
+	for k, v := range fields2 {
+		fields[k] = v
+	}
+	return fields
+}
 
 // WithError appends err to entry and returns new entry.
 func WithError(entry *logrus.Entry, err error) *logrus.Entry {
@@ -46,7 +51,7 @@ func WithFields(err error, fields logrus.Fields) error {
 	}
 	return &logrusError{
 		err:    err,
-		fields: appendFields(getFields(err), fields),
+		fields: AppendFields(getFields(err), fields),
 	}
 }
 
