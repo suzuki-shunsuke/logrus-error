@@ -1,4 +1,4 @@
-package errlog
+package logerr
 
 import (
 	"errors"
