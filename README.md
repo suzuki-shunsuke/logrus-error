@@ -1,2 +1,7 @@
 # logrus-error
-Embed logrus.Fields into error
+
+Embed [logrus](https://github.com/sirupsen/logrus).Fields into error
+
+# License
+
+[MIT](LICENSE)
