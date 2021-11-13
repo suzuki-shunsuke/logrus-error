@@ -1,6 +1,8 @@
 package logerr
 
 import (
+	"fmt"
+
 	"github.com/sirupsen/logrus"
 )
 
@@ -41,6 +43,15 @@ type LogrusError interface {
 type logrusError struct {
 	err    error
 	fields logrus.Fields
+}
+
+// WithText is a simple wrapper of fmt.Errorf.
+// If err is nil, nil is returned.
+func WithText(err error, text string) error {
+	if err == nil {
+		return nil
+	}
+	return fmt.Errorf(text+": %w", err)
 }
 
 // WithFields appends fields to err and returns new error.
