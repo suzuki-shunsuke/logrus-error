@@ -2,6 +2,7 @@ package logerr_test
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -131,6 +132,36 @@ func TestWithFields(t *testing.T) {
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			err := logerr.WithFields(d.err, d.fields)
+			if !reflect.DeepEqual(d.exp, err) {
+				t.Fatalf("wanted %+v, got %+v", d.exp, err)
+			}
+		})
+	}
+}
+
+func TestWithText(t *testing.T) {
+	t.Parallel()
+	data := []struct {
+		title string
+		text  string
+		err   error
+		exp   error
+	}{
+		{
+			title: "nil",
+		},
+		{
+			title: "hello",
+			err:   errors.New("foo"),
+			text:  "hello",
+			exp:   fmt.Errorf("hello: %w", errors.New("foo")),
+		},
+	}
+	for _, d := range data {
+		d := d
+		t.Run(d.title, func(t *testing.T) {
+			t.Parallel()
+			err := logerr.WithText(d.err, d.text)
 			if !reflect.DeepEqual(d.exp, err) {
 				t.Fatalf("wanted %+v, got %+v", d.exp, err)
 			}
