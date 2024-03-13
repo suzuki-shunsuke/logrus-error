@@ -1,22 +1,12 @@
 {
   extends: [
     'config:recommended',
+    'github>suzuki-shunsuke/renovate-config#2.3.0',
+    'github>suzuki-shunsuke/renovate-config:nolimit#2.3.0',
+    'github>suzuki-shunsuke/renovate-config:action-go-version#2.3.0',
   ],
   configMigration: true,
-  automerge: true,
   packageRules: [
-    {
-      matchUpdateTypes: [
-        'major',
-      ],
-      automerge: false,
-    },
-    {
-      matchUpdateTypes: [
-        'digest',
-      ],
-      enabled: false,
-    },
     {
       postUpdateOptions: [
         'gomodTidy',
