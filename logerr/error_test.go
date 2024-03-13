@@ -102,7 +102,7 @@ func TestWithError(t *testing.T) {
 			}
 			err, ok := entry.Data["error"]
 			if ok {
-				s := err.(error).Error()
+				s := err.(error).Error() //nolint:forcetypeassert
 				if !reflect.DeepEqual(d.expErr, s) {
 					t.Fatalf("wanted %s, got %s", d.expErr, s)
 				}
