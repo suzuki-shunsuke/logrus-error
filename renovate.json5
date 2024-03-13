@@ -1,21 +1,29 @@
 {
   extends: [
-    "config:base",
+    'config:recommended',
   ],
   configMigration: true,
   automerge: true,
   packageRules: [
     {
-      matchUpdateTypes: ["major"],
+      matchUpdateTypes: [
+        'major',
+      ],
       automerge: false,
     },
     {
-      matchUpdateTypes: ["digest"],
+      matchUpdateTypes: [
+        'digest',
+      ],
       enabled: false,
     },
     {
-      postUpdateOptions: ["gomodTidy"],
-      matchManagers: ["gomod"],
-    }
-  ]
+      postUpdateOptions: [
+        'gomodTidy',
+      ],
+      matchManagers: [
+        'gomod',
+      ],
+    },
+  ],
 }
