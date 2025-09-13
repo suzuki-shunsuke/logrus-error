@@ -2,42 +2,11 @@
 name: test (workflow_call)
 on: workflow_call
 jobs:
-  path-filter:
-    # Get changed files to filter jobs
-    timeout-minutes: 10
-    outputs:
-      renovate-config-validator: ${{steps.changes.outputs.renovate-config-validator}}
-    runs-on: ubuntu-24.04
-    permissions: {}
-    steps:
-      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
-        id: changes
-        with:
-          filters: |
-            renovate-config-validator:
-              - renovate.json5
-              - .github/workflows/workflow_call_test.yaml
-              - .github/workflows/wc-renovate-config-validator.yaml
-
   test:
-    timeout-minutes: 15
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-        with:
-          persist-credentials: false
-      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
-        with:
-          go-version: 1.25.1
-      - uses: aquaproj/aqua-installer@ea518c135a02fc11ff8024364510c181a5c6b342 # v4.0.3
-        with:
-          aqua_version: v2.46.0
-      - run: go test -v ./... -race -covermode=atomic
-      - run: golangci-lint run
-
-  renovate-config-validator:
-    uses: ./.github/workflows/wc-renovate-config-validator.yaml
-    needs: path-filter
-    if: needs.path-filter.outputs.renovate-config-validator == 'true'
+    uses: suzuki-shunsuke/go-test-full-workflow/.github/workflows/test.yaml@3429e3ed1cb719d01112a04a07ff8754510cd9df # v4.0.0
+    with:
+      aqua_version: v2.53.11
+      golangci-lint-timeout: 120s
     permissions:
+      pull-requests: write
       contents: read
