@@ -14,3 +14,4 @@ packages:
   - name: golangci/golangci-lint@v2.0.0
   - name: crate-ci/typos@v1.36.2
   - name: reviewdog/reviewdog@v0.21.0
+  - name: suzuki-shunsuke/ghalint@v1.5.3
