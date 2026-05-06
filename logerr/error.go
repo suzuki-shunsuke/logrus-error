@@ -2,6 +2,7 @@ package logerr
 
 import (
 	"fmt"
+	"maps"
 
 	"github.com/sirupsen/logrus"
 )
@@ -10,12 +11,8 @@ import (
 // fields of fields2 overwrites fields of fields1.
 func AppendFields(fields1, fields2 logrus.Fields) logrus.Fields {
 	fields := make(logrus.Fields, len(fields1)+len(fields2))
-	for k, v := range fields1 {
-		fields[k] = v
-	}
-	for k, v := range fields2 {
-		fields[k] = v
-	}
+	maps.Copy(fields, fields1)
+	maps.Copy(fields, fields2)
 	return fields
 }
 

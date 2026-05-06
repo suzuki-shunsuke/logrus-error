@@ -42,7 +42,6 @@ func TestAppendFields(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			fields := logerr.AppendFields(d.fields1, d.fields2)
@@ -93,7 +92,6 @@ func TestWithError(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			entry := logerr.WithError(d.entry, d.err)
@@ -128,7 +126,6 @@ func TestWithFields(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			err := logerr.WithFields(d.err, d.fields)
@@ -158,7 +155,6 @@ func TestWithText(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			err := logerr.WithText(d.err, d.text)
