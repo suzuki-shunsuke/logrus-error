@@ -24,7 +24,6 @@ func Test_logrusError_Error(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			act := d.err.Error()
@@ -63,7 +62,6 @@ func Test_logrusError_Unwrap(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			act := d.err.Unwrap()
@@ -104,7 +102,6 @@ func Test_logrusError_GetLogrusFields(t *testing.T) {
 		},
 	}
 	for _, d := range data {
-		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
 			act := d.err.GetLogrusFields()
